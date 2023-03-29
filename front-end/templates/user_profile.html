@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - Pen Odyssey{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_profile.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% if user %}
+        <div class="container-wide">
+            <div class="profile">
+                <h1 id="full-name"> {{ user.first_name }} {{ user.last_name }} </h1>
+                <p id="bio"> {{ user.bio }} </p>
+                <h2>Interests</h2>
+                <ul id="interests">
+                    {% for interest in user.interests %}
+                        <li> {{ interest }} </li>
+                    {% endfor %}
+                </ul>
+                
+                <h2>My Blogs</h2>
+                <ul id="written-blogs">
+                    {% if written_blogs %}
+                        <div class="link-list">
+                            {% for data in written_blogs %}
+                                <li>
+                                    <a href="/blog/{{ written_blogs[data]}}"> . {{ data }}</a>
+                                </li>
+                                <br>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p> <em>No blogs</em> </p>
+                    {% endif %}
+                </ul>
+                
+                <h2>Blogs you Liked</h2>
+                <ul id="liked-blogs">
+                    {% if liked_blogs %}
+                        <div class="link-list">
+                            {% for data in liked_blogs %}
+                                <li>
+                                    <a href="/blog/{{ liked_blogs[data]}}"> . {{ data }}</a>
+                                </li>
+                                <br>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p> <em>No Liked Blogs</em> </p>
+                    {% endif %}
+                </ul>
+            
+                <h2>Bookmarks</h2>
+                <ul id="bookmarks">
+                    {% if bookmarked_blogs %}
+                        <div class="link-list">
+                            {% for data in bookmarked_blogs %}
+                                <li>
+                                    <a href="/blog/{{ written_blogs[data]}}"> . {{ data }}</a>
+                                </li>
+                                <br>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p> <em>No Bookmarks</em> </p>
+                    {% endif %}
+                </ul>
+                <h2>Comments</h2>
+                <ul id="comments">
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <div class="comment-block">
+                                <p>- {{ comment }} </p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p> <em>You have no comments.</em> </p>
+                    {% endif %}
+                </ul>
+
+                <h2>Subscribed To</h2>
+                <ul id="bookmarks">
+                    {% if subscribed_to %}
+                        <div class="link-list">
+                            {% for data in subscribed_to %}
+                                <li>
+                                    <a href="/user/{{ subscribed_to[data]}}"> . {{ data }}</a>
+                                </li>
+                                <br>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p> <em>You have no subscriptios </em> </p>
+                    {% endif %}
+                </ul>
+
+                <h2>Subscribers</h2>
+                <ul id="bookmarks">
+                    {% if subscribers %}
+                        <div class="link-list">
+                            {% for data in subscribers %}
+                                <li>
+                                    <a href="/user/{{ subscribers[data]}}"> . {{ data }}</a>
+                                </li>
+                                <br>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p> <em>No Subscribers</em> </p>
+                    {% endif %}
+                </ul>
+
+            </div>
+        </div>
+
+        <br>
+        
+    {% endif %}
+        
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog - Pen Odyssey{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blog.css') }}">
+{% endblock %}
+
+{% block content %}
+    
+    <main>
+        {% if blog %}
+            <div class="container">
+                <div class="container-wide blog">
+                    <article>
+                        <h1> {{ blog.blog_title }} </h1>
+                
+                        <div class="tags">
+                            <h3></h3>
+                            <ul>
+                                <div class="link-list">
+                                    <ul>
+                                        {% for tag in tags%}
+                                            <li><a href="#">{{ tag }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </ul>
+                        </div>
+                
+                        {% for paragraph in blog.blog_content %}
+                            <p class="blog-content">{{ paragraph }}</p>
+                        {% endfor %}
+                        <div class="tags">
+                            <h3>Category</h3>
+                            <div class="link-list">
+                                <ul>
+                                    {% for cate in categories %}
+                                        <li><a href="#">{{ cate }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                
+                        <div class="feedback">
+                            <!-- <button class="like-btn">Like</button> -->
+                            <div class="likes-comments">
+                                <div class="likes">
+                                    <h3>Likes</h3>
+                                    {% if likes %}
+                                        <p class="like-count">{{ likes|length }} likes</p>
+                                    {% else %}
+                                        <p class="like-count"><em>No likes</em></p>
+                                    {% endif %}
+                                </div>
+                                <div class="comments">
+                                    <h3>Comments</h3>
+                                    <ul>
+                                        {% if comments %}
+                                            {% for comment, user_data in comments.items() %}
+                                                <div class="comments">
+                                                    <li>
+                                                        <div class="user-comment">
+                                                            <a href="/user/{{ user_data[1] }}"> {{ user_data[0] }}</a>
+                                                        </div>
+                                                        <p>{{ comment }}</p>
+                                                    </li>
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                                <em>No Comments</em>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="container-wide blog-data">
+                    <aside>
+                        <h2>Blogs Info</h2>
+                        {% if likes %}
+                            <h4>Who Liked The BLOG</h4>
+                            <ul>
+                                {% for like in likes %}
+                                    <li> <p>{{ like }}</p> </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </aside>
+                </div>
+            </div>
+
+        {% endif %}
+    </main>
+
+{% endblock %}
